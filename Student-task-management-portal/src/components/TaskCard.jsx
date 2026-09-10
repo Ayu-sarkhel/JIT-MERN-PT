@@ -1,13 +1,11 @@
-function TaskCard(prop) {
+function TaskCard(props) {
     return (
         <div className="task-card">
-            <h3>{prop.title}</h3>
-
-            <p>{prop.desc}</p>
-
-            <p>{prop.status}</p>
+            <h3>{props.title}</h3>
+            <p>{props.desc}</p>
+            <p>{props.status}</p>
+            <button onClick={props.onToggle}>Change Status</button>
         </div>
     );
 }
-
 export default TaskCard;

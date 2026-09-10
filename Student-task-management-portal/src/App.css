@@ -3,9 +3,7 @@
 nav {
   background-color: #222;
   color: white;
-
   padding: 15px 30px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,7 +23,6 @@ nav h2 {
   cursor: pointer;
 }
 
-
 /* Welcome */
 
 .welcome {
@@ -37,13 +34,11 @@ nav h2 {
   font-size: 28px;
 }
 
-
 /* Dashboard */
 
 main {
   padding: 0 30px 30px;
 }
-
 
 /* Stat Cards */
 
@@ -55,12 +50,9 @@ main {
 
 .stat-card {
   background-color: white;
-
   border: 1px solid #ccc;
   border-radius: 6px;
-
   width: 150px;
-
   padding: 15px;
 }
 
@@ -74,14 +66,12 @@ main {
   font-size: 24px;
 }
 
-
 /* Recent Tasks */
 
 main > h2 {
   font-size: 20px;
   margin-bottom: 15px;
 }
-
 
 /* Task Cards */
 
@@ -93,12 +83,9 @@ main > h2 {
 
 .task-card {
   background-color: white;
-
   border: 1px solid #ccc;
   border-radius: 6px;
-
   padding: 18px 20px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -6,5 +6,4 @@ function StatCard(props) {
         </div>
     );
 }
-
 export default StatCard;
