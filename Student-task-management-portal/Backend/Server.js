@@ -9,6 +9,7 @@ const app = express();
 
 // use cors middleware to handle requests
 app.use(cors());
+app.use(express.json());
 
 const tasks = [
     {
@@ -27,6 +28,21 @@ const tasks = [
 
 app.get("/api/tasks", (req,res)=>{
     res.json(tasks);
+})
+
+app.get("/api/tasks/:id", (req,res)=>{
+    const id = Number(req.params.id);
+    const task = tasks.find((task)=> task.id === id);
+    if(!task){
+        return res.status(404).json({message: "Task not found!"});
+    }
+    res.json(task);
+})
+
+app.post("/api/tasks", (req,res)=>{
+    const newTask = req.body;
+    tasks.push(newTask);
+    res.status(201).json(newTask);
 })
 
 // API Route (Testing Backend)
