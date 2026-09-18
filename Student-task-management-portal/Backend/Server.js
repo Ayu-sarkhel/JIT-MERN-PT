@@ -11,7 +11,13 @@ const app = express();
 
 const Task = require("./Models/Task");
 
+const User = require("./Models/User");
+
 const mongoose = require("mongoose");
+
+const bcrypt = require("bcrypt");
+
+const jwt = require("jsonwebtoken");
 
 // use cors middleware to handle requests
 app.use(cors());
@@ -93,6 +99,63 @@ app.post("/api/tasks", async (req, res)=>{
 // API Route (Testing Backend)
 app.get("/", (req, res) => {
     res.send("Backend is Working!!")
+});
+
+app.post("/api/register", async (req,res)=>{
+    try{
+        const{name, email, password} = req.body;
+        const hashedPassword = await bcrypt.hash(password,10);
+        const newUser = await User.create({
+            name,
+            email,
+            password: hashedPassword
+        });
+        res.status(201).json({
+            message: "User Registered Successfully!",
+            user: newUser
+        });
+    }
+    catch(error){
+        res.status(500).json({
+            message: "Registration Failed!"
+        });
+    }
+})
+
+app.post("/api/login", async (req, res) => {
+    try{
+        const {email, password} = req.body;
+        const user = await User.findOne({email});
+        if(!user){
+            return res.status(404).json({
+                message: "User Not Found!"
+            });
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(
+            password,
+            user.password
+        );
+        if(!isPasswordCorrect){
+            return res.status(401).json({
+                message: "Invalid Password"
+            });
+        }
+        const token = jwt.sign(
+            {userId: user._id},
+            "mysecretkey",
+            {expiresIn: "1h"}
+        );
+        res.json({
+            message: "Login Successful!",
+            token: token
+        });
+    }catch(error){
+        console.log(error);
+        res.status(500).json({
+            message: "login Failed!"
+        });
+    }
 });
 
 // start the server and listen to port 5000

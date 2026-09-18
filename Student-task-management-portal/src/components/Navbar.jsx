@@ -1,6 +1,12 @@
 import {Link} from "react-router-dom";
 
 function Navbar() {
+
+    const handleLogout = ()=>{
+        localStorage.removeItem("token");
+        console.log("Logged Out Successfully!");
+    }
+
     return (
         <nav>
 
@@ -9,6 +15,7 @@ function Navbar() {
             <div className="nav-links">
                 <Link to={"/"}>Home</Link>
                 <Link to={"/tasks"}>Tasks</Link>
+                <button onClick={handleLogout}>Logout</button>
             </div>
 
         </nav>
